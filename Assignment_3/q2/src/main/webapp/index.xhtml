@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<title>Language Selection</title>
+	<style>
+body {
+	background-color: yellow; /* Set background color to yellow */
+}
+</style>
+</h:head>
+<h:body>
+	<h:form>
+		<h:outputLabel for="state" value="Select Your State:" />
+		<h:selectOneMenu id="state" value="#{languageBean.selectedState}">
+			<f:selectItem itemValue="" itemLabel="Select" />
+			<f:selectItem itemValue="Karnataka" itemLabel="Karnataka" />
+			<f:selectItem itemValue="Maharashtra" itemLabel="Maharashtra" />
+			<f:selectItem itemValue="Tamil Nadu" itemLabel="Tamil Nadu" />
+			<f:selectItem itemValue="Kerala" itemLabel="Kerala" />
+			<f:ajax event="change" render="languageDisplay" />
+			<!-- AJAX for dynamic update -->
+		</h:selectOneMenu>
+
+	</h:form>
+	<h:panelGroup id="languageDisplay" style="margin-top: 20px;">
+		<h:outputText
+			value="Your selected language is: #{languageBean.selectedLanguage}" />
+	</h:panelGroup>
+</h:body>
+</html>

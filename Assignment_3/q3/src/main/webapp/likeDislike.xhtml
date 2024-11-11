@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<title>Like or Dislike Example with Images</title>
+	<style>
+.buttons {
+	display: flex;
+	margin-top: 20px;
+}
+
+.counts {
+	margin-top: 20px;
+	font-weight: bold;
+}
+
+img {
+	width: 50px;
+	height: 50px;
+	cursor: pointer; /* Make the image look clickable */
+}
+
+.like, .dislike {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin:10px;
+}
+</style>
+</h:head>
+<h:body>
+	<h:form>
+		<div class="buttons">
+			<!-- Like Image Button -->
+			<h:commandLink action="#{likeDislikeBean.like}" class="like">
+				<h:graphicImage value="/resources/images/like.png" alt="Like" />
+				<f:ajax render="likeCount" />
+				<h:outputText id="likeCount" value="#{likeDislikeBean.likeCount}" />
+			</h:commandLink>
+
+			<!-- Dislike Image Button -->
+			<h:commandLink action="#{likeDislikeBean.dislike}" class="dislike">
+				<h:graphicImage value="/resources/images/dislike.png" alt="Dislike" />
+				<f:ajax render="dislikeCount" />
+				<h:outputText id="dislikeCount"
+					value="#{likeDislikeBean.dislikeCount}" />
+			</h:commandLink>
+		</div>
+
+		<div class="counts">
+			<!-- Display Like Count -->
+			<!-- Display Dislike Count -->
+
+		</div>
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Product Data Table</title>
+	<style>
+table {
+	width: 50%;
+	border-collapse: collapse; /* Ensure borders collapse */
+}
+
+/* Styles for table header */
+th {
+	border-bottom: 1px solid gray; /* Border at the bottom of the header */
+	padding: 8px; /* Padding for header cells */
+	background-color: #f0f0f0; /* Optional background color for header */
+	text-align: left; /* Align text to the left */
+}
+
+/* Styles for table body */
+td {
+	border-bottom: 1px solid gray; /* Add bottom border for body cells */
+	padding: 8px; /* Padding for body cells */
+	text-align: left; /* Align text to the left */
+}
+
+/* Style for Edit button */
+.edit-button {
+	color: black; /* Default color */
+}
+
+.edit-button.active {
+	color: red; /* Change color when active */
+}
+
+/* Style for Save Changes button */
+.save-button {
+	border: 2px solid gray; 
+	border-radius: 5px;/* Add border to save button */
+	padding: 5px 10px; /* Add padding */
+	background-color: lightgray; /* Background color */
+	margin: 10px;
+}
+</style>
+</h:head>
+<h:body>
+	<h:form id="productForm">
+		<h:dataTable id="productTable" value="#{productBean.products}"
+			var="product">
+			<h:column>
+				<f:facet name="header">Order No</f:facet>
+				<h:outputText value="#{product.orderId}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Product Name</f:facet>
+				<h:inputText value="#{product.productName}"
+					rendered="#{productBean.isEditing(product)}"
+					styleClass="#{productBean.isEditing(product) ? 'editable-row' : ''}" />
+				<h:outputText value="#{product.productName}"
+					rendered="#{!productBean.isEditing(product)}"
+					styleClass="#{productBean.isEditing(product) ? 'editable-row' : ''}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Price</f:facet>
+				<h:inputText value="#{product.price}"
+					rendered="#{productBean.isEditing(product)}"
+					styleClass="#{productBean.isEditing(product) ? 'editable-row' : ''}" />
+				<h:outputText value="#{product.price}"
+					rendered="#{!productBean.isEditing(product)}"
+					styleClass="#{productBean.isEditing(product) ? 'editable-row' : ''}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Quantity</f:facet>
+				<h:inputText value="#{product.quantity}"
+					rendered="#{productBean.isEditing(product)}"
+					styleClass="#{productBean.isEditing(product) ? 'editable-row' : ''}" />
+				<h:outputText value="#{product.quantity}"
+					rendered="#{!productBean.isEditing(product)}"
+					styleClass="#{productBean.isEditing(product) ? 'editable-row' : ''}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Action</f:facet>
+				<h:commandButton value="Edit"
+					action="#{productBean.enableEditing(product)}"
+					styleClass="edit-button #{productBean.isEditing(product) ? 'active' : ''}">
+					<f:ajax render="@form" />
+					<!-- Refresh the form to reflect changes -->
+				</h:commandButton>
+			</h:column>
+		</h:dataTable>
+		<h:commandButton value="Save Changes"
+			action="#{productBean.saveChanges()}" styleClass="save-button" />
+	</h:form>
+</h:body>
+</html>

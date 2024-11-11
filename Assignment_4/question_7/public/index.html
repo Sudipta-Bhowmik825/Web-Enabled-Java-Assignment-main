@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <title>Question 7</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: "Plus Jakarta Sans", serif;
+        }
+        body{
+            min-height: 100dvh;
+            width: 100dvw;
+            background-color: #e5ebefb3;
+        }
+        main{
+            width: 100%;
+            height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 1rem;
+        }
+        .container{
+            max-width: 25rem;
+            width: 100%;
+            padding: 1rem;
+            border:1px solid #0d10122b;
+            box-shadow: 0px 2px 15px #0d10120c;
+            border-radius: 10px;
+            background-color: #ffffff;
+        }
+        h1{
+            font-size: 1.65rem;
+            font-weight: 500;
+            color: #000000;
+            text-align: center;
+            margin-bottom: 1.25rem;
+            margin-top: .5rem;
+        }
+        .input-container{
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            margin-bottom: 0.5rem;
+        }
+        .input-container > label{
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .input-container > input{
+            width: 100%;
+            height: 2rem;
+            padding-inline: 0.45rem;
+            border:1px solid #0d10123e;
+            border-radius: 5px;
+            outline: none;
+        }
+        .input-container > input:focus{
+            background-color: #0d101211;
+        }
+
+        button{
+            margin-top: .65rem;
+            margin-bottom: 0.5rem;
+            height: 2.25rem;
+            width: 100%;
+            border: none;
+            outline: none;
+            background-color: rgb(55, 0, 255);
+            color: #ffffff;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+ 
+    </style>
+</head>
+<body>
+    <main>
+        <div class="container">
+            <form onsubmit="auth(event)">
+                <h1>Login</h1>
+                <div class="input-container">
+                    <label for="username">Username:</label>
+                    <input type="text" name="username" id="username" placeholder="Enter your username" required>
+                </div>
+                <div class="input-container">
+                    <label for="password">Password:</label>
+                    <input type="text" name="password" id="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </main>
+    <script>
+        const auth=(event)=>{
+            event.preventDefault();
+            const username=document.getElementById('username').value;
+            const password=document.getElementById('password').value;
+            const result=document.getElementById('result');
+            const req= new XMLHttpRequest();
+            req.open('POST', '/login', true);
+            req.setRequestHeader('Content-Type', 'application/json');
+            req.onload=()=>{
+                if(req.status===200){
+                    const response = JSON.parse(req.responseText);
+                    alert(response.message);
+                }else{
+                    const response = JSON.parse(req.responseText);
+                    alert(response.message);
+                }
+            }
+            let data = JSON.stringify({
+                username: username,
+                password: password
+            });
+            req.send(data);
+        }
+    </script>
+
+</body>
+</html>

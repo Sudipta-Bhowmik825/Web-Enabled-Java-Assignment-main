@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+<head>
+    <title>Payment Information</title>
+</head>
+<body>
+    <h:form>
+        <!-- If the payment is valid, show the success message -->
+        <h:outputText value="The credit card information is valid." rendered="#{paymentBean.valid}" style="color:green; font-weight:bold;" />
+        <br/><br/>
+
+        <h1>Please enter the payment information</h1>
+
+        <!-- Amount Field -->
+        <h:outputLabel for="amount" value="Amount" />
+        <h:inputText id="amount" value="#{paymentBean.amount}" />
+        <br/><br/>
+
+        <!-- Credit Card Field with Validator -->
+        <h:outputLabel for="creditCard" value="Credit Card" />
+        <h:inputText id="creditCard" value="#{paymentBean.creditCardNumber}" validator="creditCardValidator" />
+        <h:message for="creditCard" style="color:red;" />
+        <br/><br/>
+
+        <!-- Expiration Date Field -->
+        <h:outputLabel for="expirationDate" value="Expiration date (Month/Year)" />
+        <h:inputText id="expirationDate" value="#{paymentBean.expirationDate}" />
+        <br/><br/>
+
+        <!-- Process Button -->
+        <h:commandButton value="Process" action="#{paymentBean.processPayment}" />
+
+    </h:form>
+</body>
+</html>

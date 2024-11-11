@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <title>Question 3</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: "Plus Jakarta Sans", serif;
+        }
+        body{
+            min-height: 100dvh;
+            width: 100dvw;
+            background-color: #e5ebefb3;
+        }
+        main{
+            width: 100%;
+            height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            flex-direction: column;
+            padding: 1rem;
+        }
+        .container{
+            max-width: 25rem;
+            width: 100%;
+            padding: 1rem;
+            border:1px solid #0d10122b;
+            box-shadow: 0px 2px 15px #0d10120c;
+            border-radius: 10px;
+            background-color: #ffffff;
+        }
+        h1{
+            font-size: 1.35rem;
+            font-weight: 500;
+            color: #000000;
+            text-align: center;
+            margin-bottom: 1.25rem;
+            margin-top: .5rem;
+        }
+        button{
+            margin-top: .65rem;
+            margin-bottom: 0.5rem;
+            height: 2.25rem;
+            width: 100%;
+            border: none;
+            outline: none;
+            background-color: rgb(55, 0, 255);
+            color: #ffffff;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .result-container{
+            width: 100%;
+            padding: 1rem;
+            border:1px solid #0d10122b;
+            box-shadow: 0px 2px 15px #0d10120c;
+            border-radius: 10px;
+            background-color: #ffffff;
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            transition: all 200ms ease-in-out;
+        }
+        #result{
+            max-width: 55rem;
+            width: 100%;
+        } 
+    </style>
+</head>
+<body>
+    <main>
+        <div class="container">
+            <h1>Load Text File Using AJAX</h1>
+            <button onclick="loadText()">Load Text</button>
+        </div>
+        <div id="result">
+        </div>
+    </main>
+    <script>
+        const loadText=()=>{
+            const req = new XMLHttpRequest();
+            const resultContent=document.getElementById('result');
+            req.open('GET','data.txt',true)
+            req.onload=()=>{
+                if(req.status >= 200 && req.status <= 300 ){
+                    const text=req.responseText;
+                    resultContent.innerHTML=`
+                    <div class="result-container">
+                        <p>${text}</p>
+                    </diV>
+                    `;
+                }else{
+                    resultContent.innerHTML=`
+                    <div class="result-container">
+                        <p>Failed to load</p>
+                    </diV>
+                    `;
+                }
+
+            }
+            req.onerror=()=>{
+                resultContent.innerHTML=`
+                <div class="result-container">
+                    <p>Failed to load</p>
+                </diV>
+                `;
+            }
+            req.send();
+        }
+    </script>
+</body>
+</html>
